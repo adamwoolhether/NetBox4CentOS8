@@ -1,14 +1,16 @@
 # NetBox4CentOS8
 
-This playbook will install Netbox on a clean CentOS 8 system, all the way through. The only work needed is to input a few values in `vars/config.yml`.
+This playbook will install Netbox on a clean CentOS 8 system. 
 
-Why make this? Official install documentation lacks proper procedure for CentOS 8. It's easy to figure out, but having a playbook makes the entire setup process extremely quick and easy.
+The only work needed is to input a few values in `vars/config.yml`.
+
+Why make this? Official install documentation lacks proper procedure for CentOS 8. Having a playbook makes the entire setup process extremely quick and easy.
 
 You can easily make a few small adjustments for CentOS 7 if desired.
 
 ## How to
 
-### 1. Fill in the `var/config.yml` 
+#### 1. Fill in the `var/config.yml` 
 
 `auth` specifies the PostgreSQL username and password.
 
@@ -18,7 +20,7 @@ You can easily make a few small adjustments for CentOS 7 if desired.
 
 `ssl` specifies the self-signed cert information. These are option and can be left blank.
 
-### 2. Run the playbook
+#### 2. Run the playbook
 
 Yep, that easy.
 
