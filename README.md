@@ -33,7 +33,7 @@ Running `config.sh` takes some time. Don't stop the playbook during this task.
 
 The playbook WILL hang if you're trying to create a user for the NetBox app that already exists.
 
-I assume a registered DNS name is used. Modify the `httpdconf.j2` file if needed.
+I assume a registered DNS is not used. Modify the `httpdconf.j2` file if needed.
   
 ## Further Reading:
 
