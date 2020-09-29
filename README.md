@@ -25,15 +25,14 @@ You can easily make a few small adjustments for CentOS 7 if desired.
 Yep, that easy.
 
 ## NOTES:
-Designed for a fresh install, and should only need to be ran once. 
-
-Some conditionals are added for increased idempotency, if you stop or encounter errors, but running on a system with previous install is unlikely to work.
 
 Running `config.sh` takes some time. Don't stop the playbook during this task.
 
 The playbook WILL hang if you're trying to create a user for the NetBox app that already exists.
 
 I assume a non DNS registered domain is used. Modify the `httpdconf.j2` file if needed.
+
+Some conditionals are added for increased idempotency where shell/command module must be used.
   
 ## Further Reading:
 
