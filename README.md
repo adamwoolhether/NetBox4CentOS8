@@ -20,7 +20,13 @@ You can easily make a few small adjustments for CentOS 7 if desired.
 
 `ssl` specifies the self-signed cert information. These are option and can be left blank.
 
-#### 2. Run the playbook
+#### 2. Setup Target
+
+Within inventory, place your target host(s) under a group called `nbhost`.
+
+Or change `hosts: nbhost` within the playbook to target localhost.
+
+#### 3. Run the  `installNB.yml`playbook
 
 Yep, that easy.
 
