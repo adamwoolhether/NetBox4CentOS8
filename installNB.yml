@@ -25,14 +25,14 @@
         - redis
         - git
         - httpd
+        - python3-psycopg2
+        - python3-pexpect
       state: latest
 
-  - name: INSTALL PIP DEPENDENCIES
+  - name: UPGRADE PIP TO LATEST
     pip:
       name:
-        - psycopg2
-        - pexpect
-        # - PyOpenSSL
+        - pip
       state: latest
 
   - name: CHECK IF POSTGRESQL IS INITIALIZED
