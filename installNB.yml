@@ -308,6 +308,21 @@
       state: restarted
       enabled: yes
 
+- name: "PLAY 8: INSTALL ANSIBLE MODULES"
+  hosts: nbhost
+  remote_user: root
+  become: true
+  gather_facts: false
+  tags: ['modules']    
+  
+  tasks:
+  - name: INSTALL PYNETBOX
+    dnf:
+      name: python3-pynetbox
+      state: latest
+  - name: INSTALL NETBOX.NETBOX
+    command: ansible-galaxy collection install netbox.netbox
+
   - name: NETBOX SETUP COMPLETE
     debug:  
       msg: 
