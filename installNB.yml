@@ -9,12 +9,13 @@
   - name: INSTALL DEPENDENCIES
     dnf:
       name:
+        - ansible
         - postgresql
         - postgresql-server
         - postgresql-devel
         - gcc
-        - python36
-        - python36-devel
+        - python38
+        - python38-devel
         - python3-setuptools
         - libxml2-devel
         - libxslt-devel
@@ -31,8 +32,8 @@
 
   - name: UPGRADE PIP TO LATEST
     pip:
-      name:
-        - pip
+      name: pip
+      executable: pip3
       state: latest
 
   - name: CHECK IF POSTGRESQL IS INITIALIZED
@@ -313,6 +314,8 @@
   remote_user: root
   become: true
   gather_facts: false
+  vars_files:
+    - vars/config.yml
   tags: ['modules']    
   
   tasks:

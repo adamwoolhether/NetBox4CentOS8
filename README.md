@@ -10,7 +10,7 @@ You can easily make a few small adjustments for CentOS 7 if desired.
 
 ## How to
 
-#### 1. Fill in the `var/config.yml` 
+#### 1. Fill in the `var/configTMPLATE.yml` & change file name to `config.yml` 
 
 `auth` specifies the PostgreSQL username and password.
 
