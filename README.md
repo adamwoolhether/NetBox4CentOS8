@@ -1,16 +1,17 @@
 # NetBox4CentOS8
 
-This playbook will install Netbox on a clean CentOS 8 system. 
+This playbook will bootstrap your Netbox install on a clean CentOS 8 system. 
 
-The only work needed is to input a few values in `vars/config.yml`.
+Replace values in `vars/config.yml`, and set target ip in `inventory`.
+
+Assuming target host will serve as the Netbox controller, Ansible & Netbox Modules are installed in Play 7.
 
 Why make this? Official install documentation lacks proper procedure for CentOS 8. Having a playbook makes the entire setup process extremely quick and easy.
 
-You can easily make a few small adjustments for CentOS 7 if desired.
 
 ## How to
 
-#### 1. Fill in the `var/configTMPLATE.yml` & change file name to `config.yml` 
+#### 1. Fill in the `vars/configTMPLATE.yml` & change file name to `config.yml` 
 
 `auth` specifies the PostgreSQL username and password.
 
@@ -22,13 +23,13 @@ You can easily make a few small adjustments for CentOS 7 if desired.
 
 #### 2. Setup Target
 
-Within inventory, place your target host(s) under a group called `nbhost`.
+Within inventory, place your target host(s) under a group called `netboxhost`.
 
-Or change `hosts: nbhost` within the playbook to target localhost.
+Or, to install locally, change to `hosts: localhost` and add `connection: local` within each play.
 
 #### 3. Run the  `installNB.yml`playbook
 
-Yep, that easy.
+Done.
 
 ## NOTES:
 
@@ -39,6 +40,8 @@ The playbook WILL hang if you're trying to create a user for the NetBox app that
 I assume a non DNS registered domain is used. Modify the `httpdconf.j2` file if needed.
 
 Some conditionals are added for increased idempotency where shell/command module must be used.
+
+Again, this is meant to run once to bootstrap/automate the install process.
   
 ## Further Reading:
 

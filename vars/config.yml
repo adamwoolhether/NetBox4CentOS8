@@ -4,7 +4,7 @@
     password: PASSWORD
   config:
     domain: DOMAIN
-    ip: IPADDRESS
+    ip: 10.x.x.x
   app:
     "Username": "admin"
     "Email": "EMAIL"
