@@ -1,0 +1,12 @@
+---
+- import_tasks: 01packages.yml
+
+- import_tasks: 02postgresql.yml
+
+- import_tasks: 03redis.yml
+
+- import_tasks: 04netbox.yml
+
+- import_tasks: 05httpd.yml
+
+- import_tasks: 06modules.yml

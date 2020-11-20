@@ -1,0 +1,15 @@
+---
+- name: INSTALL PYNETBOX
+  dnf:
+    name: python3-pynetbox
+    state: latest
+    
+- name: INSTALL NETBOX.NETBOX
+  command: ansible-galaxy collection install netbox.netbox
+
+- name: NETBOX SETUP COMPLETE
+  debug:  
+    msg: 
+      - Access your Netbox server at https://{{ config['ip'] }} or https://{{ config['domain'] }} if you've setup dns.
+      - Playbook by Adam Woolhether | https://github.com/adamwoolhether | adam.woolhether@gmail.com
+      - Thanks to NetBox team and DigitalOcean for such a great tool!

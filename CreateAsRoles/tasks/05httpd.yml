@@ -1,0 +1,58 @@
+---
+- name: CHECK FOR SELF-SIGNED CERTS
+  stat:
+    path: /etc/ssl/private/netbox.key
+  register: cert_test
+
+- name: GENERATE CERTS
+  block:
+  - name: CREATE CERTS DIR
+    file:
+      path: /etc/ssl/private
+      state: directory
+  - name: GENERATE SELF SIGNED CERTIFICATE
+    expect:
+      command: openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/netbox.key -out /etc/ssl/certs/netbox.crt
+      responses: "{{ ssl }}"
+  when: cert_test.stat.exists == false
+    
+- name: POPULATE HTTPD CONFIG FROM TEMPLATE
+  template:
+    src: httpdconf.j2
+    dest: /etc/httpd/conf.d/netbox.conf
+    mode: '0644'
+
+- name: INSTALL MOD_SSL HTTPD MODULE
+  dnf:
+    name: certwatch-mod_ssl
+    state: present
+    
+- name: ENABLE HTTPD MODULES
+  blockinfile:
+    path: /etc/httpd/conf.modules.d/02-netbox.conf
+    create: yes
+    mode: '0644'
+    block: |
+      LoadModule ssl_module modules/mod_ssl.so
+      LoadModule proxy_module modules/mod_proxy.so
+      LoadModule proxy_http_module modules/mod_proxy_http.so
+      LoadModule headers_module modules/mod_headers.so
+
+- name: CONFIGURE FIREWALLD TO ALLOW HTTPS TRAFFIC
+  firewalld:
+    service: https
+    state: enabled
+    permanent: yes
+    immediate: yes
+
+- name: CONFIURE SELINUX TO ALLOW HTTPD TRAFFIC
+  seboolean:
+    name: httpd_can_network_connect
+    state: on
+    persistent: yes
+
+- name: START HTTPD SERVICE
+  service:
+    name: httpd
+    state: restarted
+    enabled: yes

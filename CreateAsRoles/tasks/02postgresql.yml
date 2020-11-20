@@ -1,0 +1,46 @@
+---
+- name: CHECK IF POSTGRESQL IS INITIALIZED
+  stat:
+    path: /var/lib/pgsql/data/postgresql.conf
+  register: init_test
+# - debug:
+#     var: init_test.stat.exists
+#   tags: ['debug']
+
+- name: INITIALIZE POSTGRESQL
+  command: /usr/bin/postgresql-setup --initdb --unit postgresql
+  when: init_test.stat.exists == false
+
+- name: CONFIG POSTGRESQL TO ACCEPT PW-BASED AUTH
+  postgresql_pg_hba:
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    contype: host
+    users: all
+    databases: all
+    method: md5
+
+- name: START POSTGRESQL SERVICE
+  service:
+    name: postgresql
+    state: started
+    enabled: yes
+
+- name: CREATE DB
+  postgresql_db:
+    name: netbox
+
+- name: CREATE DB USER
+  postgresql_user:
+    name: netbox
+    db: netbox
+    password: "{{ auth['password'] }}"
+    priv: ALL
+
+- name: VERIFY DB STATUS
+  postgresql_info:
+    login_host: localhost
+    login_user: netbox
+    login_password: "{{ auth['password'] }}"
+    filter: all
+  register: status
+  failed_when: status['failed'] != false
