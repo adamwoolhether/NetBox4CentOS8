@@ -12,15 +12,14 @@
         - postgresql-server
         - postgresql-devel
         - gcc
-        - python38
-        - python38-devel
+        - python36
+        - python36-devel
         - python3-setuptools
         - libxml2-devel
         - libxslt-devel
         - libffi-devel
         - openssl-devel
         - redhat-rpm-config
-        - epel-release
         - redis
         - git
         - httpd
@@ -194,7 +193,7 @@
       seconds: 5
   - name: TEST SERVER RESPONSE
     uri:
-      url: "http://{{ config['ip'] }}:8000 "
+      url: "http://{{ config['ip'] }}:8000"
       return_content: yes
     register: uri_resp
     failed_when: "'<title>Home - NetBox</title>' not in uri_resp.content"
