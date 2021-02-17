@@ -210,12 +210,18 @@
       remote_src: yes    
   
   - name: COPY SYSTEMD FILES & RELOAD DAEMON
-    copy:
+    find:
+      paths: /opt/netbox/contrib
+      file_type: file
+      patterns: '*.service'
+    register: service_file
+  - copy:
       src: "{{ item }}"
       dest: /etc/systemd/system/
       remote_src: yes
-    with_fileglob:
-      - "/opt/netbox/contrib/*.service"
+    with_items:
+      - "{{ service_file.files[0].path }}"
+      - "{{ service_file.files[1].path }}"
   - systemd:
       daemon_reload: yes
   
@@ -276,7 +282,7 @@
         LoadModule headers_module modules/mod_headers.so
 
   - name: CONFIGURE FIREWALLD TO ALLOW HTTPS TRAFFIC
-    firewalld:
+    ansible.posix.firewalld:
       service: https
       state: enabled
       permanent: yes
@@ -309,11 +315,11 @@
       state: latest
 
   - name: INSTALL NETBOX.NETBOX COLLECTION
-    command: ansible-galaxy collection install netbox.netbox
+    command: ansible-galaxy collection install netbox.netbox -c
 
   - name: NETBOX SETUP COMPLETE
     debug:  
       msg: 
         - Access your Netbox server at https://{{ config['ip'] }} or https://{{ config['domain'] }} if you've setup dns.
-        - Playbook by Adam Woolhether | https://github.com/adamwoolhether | adam.woolhether@gmail.com
+        - Playbook by Adam Woolhether | https://github.com/adamwoolhether | adamwoolhether@gmail.com
         - Thanks to NetBox team and DigitalOcean for such a great tool!
