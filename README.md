@@ -11,7 +11,7 @@ Why make this? Official install documentation lacks proper procedure for CentOS 
 
 ## How to
 
-#### 1. Fill in the `vars/configTMPLATE.yml` & change file name to `config.yml` 
+#### 1. Fill in the `vars/config.yml` 
 
 `auth` specifies the PostgreSQL username and password.
 
@@ -19,7 +19,7 @@ Why make this? Official install documentation lacks proper procedure for CentOS 
 
 `app` specifies the actual Netbox app/site's admin user credentials.
 
-`ssl` specifies the self-signed cert information. These are option and can be left blank.
+`ssl` specifies the self-signed cert information. These are optional and can be left blank.
 
 #### 2. Setup Target
 
@@ -33,15 +33,14 @@ Done.
 
 ## NOTES:
 
-Running `config.sh` takes some time. Don't stop the playbook during this task.
+* Running `config.sh` takes some time. *DO NOT* stop the playbook during this task. You can't see .sh script output
+in Ansible. (ref: https://github.com/ansible/proposals/issues/92)
 
-The playbook WILL hang if you're trying to create a user for the NetBox app that already exists.
+* The playbook WILL hang if you're trying to create a user for the NetBox app that already exists.
 
-I assume a non DNS registered domain is used. Modify the `httpdconf.j2` file if needed.
+* I assume a non-DNS registered domain is used. Modify the `httpdconf.j2` file if needed.
 
-Some conditionals are added for increased idempotency where shell/command module must be used.
-
-Again, this is meant to run once to bootstrap/automate the install process.
+* Some conditionals are added for increased idempotency where shell/command module must be used.
   
 ## Further Reading:
 
