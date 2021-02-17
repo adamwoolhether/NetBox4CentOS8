@@ -1,20 +1,20 @@
 ---
   auth:
     user: netbox
-    password: PASSWORD
+    password: admin@QCTRD3
   config:
-    domain: DOMAIN
-    ip: 10.x.x.x
+    domain: qct.netbox.io
+    ip: 10.108.5.202
   app:
     "Username": "admin"
-    "Email": "EMAIL"
-    "Password": "PASSWORD"
+    "Email": "adam.woolhether@qct.io"
+    "Password": "admin@QCT.io"
   ssl:
   #VALUES CAN BE LEFT BLANK
-    "Country": " "
-    "State": " "
-    "Locality": " "
-    "Organization": ""
-    "Organizational Unit": " "
-    "Common Name": " "
-    "Email Address": " "
+    "Country": "TW"
+    "State": "TAOYUAN"
+    "Locality": "GUISHAN"
+    "Organization": "QCT"
+    "Organizational Unit": "RD3/1"
+    "Common Name": "qct.netbox.io"
+    "Email Address": "adam.woolhether@qct.io"
