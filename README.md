@@ -2,7 +2,7 @@
 
 This playbook will bootstrap your Netbox install on a clean CentOS 8 system. 
 
-Replace values in `vars/config.yml`, and set target ip in `inventory`.
+Replace values in `vars/config.yml` leaving quotes where given, and set target ip in `inventory`.
 
 Assuming target host will serve as the Netbox controller, Ansible & Netbox Modules are installed in Play 7.
 
